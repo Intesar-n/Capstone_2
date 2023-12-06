@@ -77,6 +77,10 @@ st.markdown("""
 		gap: 30px;
     }
     
+
+
+
+    
           
             body {
             background-color: #F2F2F22;}

@@ -298,7 +298,7 @@ if st.session_state['submitted']:
         # st.header('Employee Distribution by Department')
         
         department_count = df1['Departments '].value_counts().reset_index()
-        department_fig = px.bar(department_count, x='index', y='Departments ', labels={'index': 'Department', 'Departments ': 'Count'},title='Employee Distribution by departments')
+        department_fig = px.bar(department_count, x='count', y='Departments ', labels={'index': 'Department', 'Departments ': 'Count'},title='Employee Distribution by departments')
         o,oo,ooo= st.columns([0.2,0.5,0.5])
         oo.plotly_chart(department_fig) ### check 
         ########################################################################

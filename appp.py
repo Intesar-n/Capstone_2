@@ -82,7 +82,7 @@ st.markdown("""
                 padding: 0.75rem 1.5rem;
                 margin: 0.75rem 0;
                 position: absolute;
-                left:40%;
+                left:45%;
 
             }
             .stButton>button:hover {
@@ -129,36 +129,47 @@ if not st.session_state['submitted']:
 
         # st.markdown("----", unsafe_allow_html=True)
         # st.subheader("Welcome to..")
-        st.title('HR Platform')
-        st.subheader("The PERFECT place to evaluate your employees")
+        colll1,colll2,colll3 = st.columns([0.2,0.4,0.2])
+        with colll2:        
+         st.title('HR Platform')
+        coll1,coll2,coll3 = st.columns([0.25,0.4,0.2])
+        with coll2:  
+             st.subheader("The PERFECT place to evaluate your employees")     
+        col1,col2,col3 = st.columns([0.35,0.4,0.2])
+        with col2:
+            
+            url = requests.get("https://lottie.host/46bee5b7-a234-45f6-b37d-1ef7df4b11e3/qLy06Eb0Tp.json") 
+            
+
+            url_json = dict() 
+            
+            if url.status_code == 200: 
+                url_json = url.json() 
+            else: 
+                print("Error in URL") 
+
+
+         # st.title("Adding Lottie Animation in Streamlit WebApp") 
+
+            st_lottie(url_json, 
+            # change the direction of our animation 
+            reverse=True, 
+            # height and width of animation 
+            height=300, 
+            width=300, 
+            # speed of animation 
+            speed=1, 
+            # means the animation will run forever like a gif, and not as a still image 
+            loop=True, 
+            #  quality of elements used in the animation, other values are "low" and "medium" 
+            quality='high', 
+            # THis is just to uniquely identify the animation 
+            key='Car'
+            )
+            
         # st.markdown("----", unsafe_allow_html=True)
         # submitted = st.button("Let's GO")
-        url = requests.get("https://lottie.host/46bee5b7-a234-45f6-b37d-1ef7df4b11e3/qLy06Eb0Tp.json") 
-        url_json = dict() 
         
-        if url.status_code == 200: 
-	        url_json = url.json() 
-        else: 
-	        print("Error in URL") 
-
-
-# st.title("Adding Lottie Animation in Streamlit WebApp") 
-
-        st_lottie(url_json, 
-		# change the direction of our animation 
-		reverse=True, 
-		# height and width of animation 
-		height=300, 
-		width=300, 
-		# speed of animation 
-		speed=1, 
-		# means the animation will run forever like a gif, and not as a still image 
-		loop=True, 
-		#  quality of elements used in the animation, other values are "low" and "medium" 
-		quality='high', 
-		# THis is just to uniquely identify the animation 
-		key='Car'
-		)
         st.markdown("----", unsafe_allow_html=True)
         submitted = st.button("Let's GO") 
         if submitted:

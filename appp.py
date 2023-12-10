@@ -132,10 +132,10 @@ if not st.session_state['submitted']:
         colll1,colll2,colll3 = st.columns([0.2,0.4,0.2])
         with colll2:        
          st.title('HR Platform')
-        coll1,coll2,coll3 = st.columns([0.25,0.4,0.2])
+        coll1,coll2,coll3 = st.columns([0.3,0.4,0.2])
         with coll2:  
              st.subheader("The PERFECT place to evaluate your employees")     
-        col1,col2,col3 = st.columns([0.35,0.4,0.2])
+        col1,col2,col3 = st.columns([0.4,0.4,0.2])
         with col2:
             
             url = requests.get("https://lottie.host/46bee5b7-a234-45f6-b37d-1ef7df4b11e3/qLy06Eb0Tp.json") 
@@ -178,7 +178,7 @@ if not st.session_state['submitted']:
 
 # Define your tabs
 if st.session_state['submitted']:
-    tab1, tab2,tab3 = st.tabs(["Cluster Analysis", "Perdiction","Dashbored :sunglasses:"])
+    tab1, tab2,tab3 = st.tabs(["Cluster Analysis", "Prediction","Dashboard :sunglasses:"])
     with tab3:
 
         st.title('HR Data Analysis Dashboard')
@@ -197,8 +197,10 @@ if st.session_state['submitted']:
         avg_hours_stayed = df[df['left'] == 0]['average_montly_hours'].mean()
         avg_time_left = df[df['left'] == 1]['time_spend_company'].mean()
         avg_time_stayed = df[df['left'] == 0]['time_spend_company'].mean()
+        st.divider()
 
         col1, col2,col3= st.columns([0.2,0.2,0.4])
+        
 
         col1.plotly_chart(plot_ind(avg_hours_left,'Average Hours (left)'), use_container_width=True)
         col2.plotly_chart(plot_ind(avg_hours_stayed,'Average Hours (Stayed)'), use_container_width=True)
@@ -211,7 +213,7 @@ if st.session_state['submitted']:
         turnover['Status'] = turnover['Status'].apply(lambda x: 'Left' if x == 1 else 'Stayed')
         turnover_fig = px.pie(turnover, names='Status', values='Count', hole=0.3)
         turnover_fig.update_layout(
-            title_text='Employee Turnover', # add a title
+            title_text='                                                              Employee Turnover chart', # add a title
             annotations=[dict(text='Turnover', x=0.5, y=0.5, font_size=20, showarrow=False)]
         )
         col3.plotly_chart(turnover_fig) ## the ring chart 
@@ -222,9 +224,12 @@ if st.session_state['submitted']:
         # The input should be here to select which employee are leaving or staying 
         # side bar where you will take input 
         st.sidebar.title('Data Visualization')
+        st.sidebar.divider()
+        st.sidebar.write("Here you can select the type of the group you want to see their analysis in the dashboard")
+        st.sidebar.divider()
         stayed = st.sidebar.checkbox('Stayed')
         left = st.sidebar.checkbox('Left')
-        st.sidebar.title('-------------------------')
+        
         ########################################################################
 
         if left and stayed ==False: 
@@ -236,16 +241,19 @@ if st.session_state['submitted']:
         else:
             df1 = df
             name = 'all'
-
+        st.divider()
         ########################################################################
-        # where the indecators will be for the change of the side bar 
+        # where the indicators will be for the change of the side bar 
         st.title('Select your category')
+        st.write("")
+        
         i , ii , iii , iiii = st.columns([0.2,0.2,0.2,0.2])
         ### satisfaction_level ,last_evaluation , number_project , Work_accident , promotion_last_5years
         satisfaction_level_avg = df1['satisfaction_level'].mean()
         last_evaluation_avg = df1['last_evaluation'].mean()
         number_project_avg = df1['number_project'].mean()
         promotion_last_5years_avg = df1['promotion_last_5years'].mean()
+        st.divider()
 
         i.plotly_chart(plot_ind(satisfaction_level_avg,f'Satisfaction Level ({name})'), use_container_width=True)
         ii.plotly_chart(plot_ind(last_evaluation_avg,f'Last Evaluation ({name})'), use_container_width=True)
@@ -258,11 +266,13 @@ if st.session_state['submitted']:
         # Employee Distribution by Salary Level
         salary_count = df1['salary'].value_counts().reset_index()
         salary_count.columns = ['Salary Level', 'Count']
+        
 
         # Create a horizontal bar chart
         salary_fig = px.bar(salary_count, x='Count', y='Salary Level', orientation='h')
 
         # Update layout if necessary
+        
         salary_fig.update_layout(
             title='Employee Distribution by Salary Level',
             xaxis_title='Count',
@@ -270,9 +280,11 @@ if st.session_state['submitted']:
         )
 
         # st.header('Employee Distribution by Salary Level')
+        
         j.plotly_chart(salary_fig, use_container_width=True)
         ##################
         # st.header('Employee Distribution by Department')
+        
         department_count = df1['time_spend_company'].value_counts().reset_index()
         department_count.columns = ['Years in Company', 'Count']
 
@@ -284,8 +296,9 @@ if st.session_state['submitted']:
 
         ########################################################################
         # st.header('Employee Distribution by Department')
+        
         department_count = df1['Departments '].value_counts().reset_index()
-        department_fig = px.bar(department_count, x='count', y='Departments ', labels={'index': 'Department', 'Departments ': 'Count'},title='Employee Distribution by departments')
+        department_fig = px.bar(department_count, x='index', y='Departments ', labels={'index': 'Department', 'Departments ': 'Count'},title='Employee Distribution by departments')
         o,oo,ooo= st.columns([0.2,0.5,0.5])
         oo.plotly_chart(department_fig) ### check 
         ########################################################################
@@ -298,12 +311,14 @@ if st.session_state['submitted']:
         # Assuming df is your DataFrame and 'left' is the column indicating turnover
 
         ########################################################################
+        st.divider()
         k,kk= st.columns([0.5,0.5])
         ########################################################################
 
         # Satisfaction and Evaluation Analysis
-        fig = px.histogram(df1, x='satisfaction_level', marginal='box', nbins=30, title='Satisfaction Level Distribution')
-        fig2 = px.histogram(df1, x='last_evaluation', marginal='box', nbins=30, title='Last Evaluation Score Distribution')
+        
+        fig = px.histogram(df1, x='satisfaction_level', marginal='box', nbins=30, title='                                                                                  Satisfaction Level Distribution')
+        fig2 = px.histogram(df1, x='last_evaluation', marginal='box', nbins=30, title='                                                                           Last Evaluation Score Distribution')
         k.plotly_chart(fig)
         kk.plotly_chart(fig2)
 
@@ -464,7 +479,10 @@ if st.session_state['submitted']:
         
 
     # Streamlit UI
-        k = st.slider('Select the number of clusters (k)', min_value=2, max_value=6)
+        co1,co2,co3= st.columns([0.4,0.5,0.2])
+        with co2:
+         st.subheader("Select the number of clusters (k)")
+        k = st.slider('', min_value=2, max_value=6)
         submitted = st.button("Let's GO")
         if submitted:
             try:
